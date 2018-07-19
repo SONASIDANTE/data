@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-
+//需要引入
 const Prism = require('prismjs');
 const loadLanguages = require('prismjs/components/index.js');
 loadLanguages(['basic', 'php', 'python', 'c', 'cpp', 'pascal', 'java', 'ruby',
