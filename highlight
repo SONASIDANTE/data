@@ -1,0 +1,58 @@
+import {Injectable} from '@angular/core';
+
+const Prism = require('prismjs');
+const loadLanguages = require('prismjs/components/index.js');
+loadLanguages(['basic', 'php', 'python', 'c', 'cpp', 'pascal', 'java', 'ruby',
+  'bash', 'go', 'perl', 'objectivec', 'csharp', 'scheme', 'lua', 'sql']);
+// 有可以改成管道，阅卷，报告用
+@Injectable()
+export class HighlightService {
+
+  constructor() {
+  }
+
+  changecode(code, direction) {
+    switch (direction) {
+      case 0:
+        return Prism.highlight(code, Prism.languages.c, 'c');
+      case 1:
+        return Prism.highlight(code, Prism.languages.cpp, 'cpp');
+      case 2:
+        return Prism.highlight(code, Prism.languages.pascal, 'pascal');
+      case 3:
+        return Prism.highlight(code, Prism.languages.java, 'java');
+      case 4:
+        return Prism.highlight(code, Prism.languages.ruby, 'ruby');
+      case 5:
+        return Prism.highlight(code, Prism.languages.bash, 'bash');
+      case 6: case 18:
+      return Prism.highlight(code, Prism.languages.python, 'python');
+      case 7:
+        return Prism.highlight(code, Prism.languages.php, 'php');
+      case 8:
+        return Prism.highlight(code, Prism.languages.perl, 'perl');
+      case 9:
+        return Prism.highlight(code, Prism.languages.csharp, 'csharp');
+      case 10:
+        return Prism.highlight(code, Prism.languages.objectivec, 'objectivec');
+      case 11:
+        return Prism.highlight(code, Prism.languages.basic, 'basic');
+      case 12:
+        return Prism.highlight(code, Prism.languages.scheme, 'scheme');
+      case 13:
+        return Prism.highlight(code, Prism.languages.clike, 'clike');
+      case 14:
+        return Prism.highlight(code, Prism.languages.clike, 'clike');
+      case 15:
+        return Prism.highlight(code, Prism.languages.lua, 'lua');
+      case 16:
+        return Prism.highlight(code, Prism.languages.javascript, 'javascript');
+      case 17:
+        return Prism.highlight(code, Prism.languages.go, 'go');
+      case 19:
+        return Prism.highlight(code, Prism.languages.sql, 'sql');
+      default:
+        return code;
+    }
+  }
+}
