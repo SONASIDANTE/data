@@ -1,0 +1,37 @@
+import {Injectable} from '@angular/core';
+import * as XLSX from 'xlsx';
+import {saveAs} from 'file-saver';
+@Injectable()
+export class ExcelExport {
+  constructor() {
+  }
+
+  exportXlxs(arr, name) {
+    let workbook = {
+      SheetNames: ['mySheet'],
+      Sheets: {'mySheet': XLSX.utils.json_to_sheet(arr)}
+    };
+    let ws = workbook.Sheets['mySheet'];
+    for (let val in ws) {
+      // console.log(val, ws[val]);
+      if (ws[val].v !== undefined && ws[val].t === 's' && ws[val].v.indexOf('http') >= 0) {
+        ws[val].l = {Target: ws[val].v};
+      }
+    }
+    // console.log(ws);
+    /* get binary string as output */
+    let wbout = XLSX.write(workbook, {bookType: 'xlsx', bookSST: true, type: 'binary'});
+    /* force a download */
+    let tmpDown = new Blob([this.s2ab(wbout)], {type: 'application/vnd.ms-excel'});
+    saveAs(tmpDown, name + '.xlsx');
+  }
+
+  s2ab(s) {
+    let buf = new ArrayBuffer(s.length);
+    let view = new Uint8Array(buf);
+    for (let i = 0; i !== s.length; ++i) {
+      view[i] = s.charCodeAt(i) & 0xFF;
+    }
+    return buf;
+  }
+}
