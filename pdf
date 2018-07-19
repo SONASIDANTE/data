@@ -1,0 +1,71 @@
+downloadPdf() {
+    $('#downPdf').css('display', 'block');
+    if (this.report_type === 0) {
+      $('.padding-cote-outside').css('height', 'auto');
+    }
+    $('#blackground').css('display', 'table');
+    disable_scroll();
+    if ((<HTMLElement>document.querySelector('#downPdf')).offsetHeight * 1.3 >= 31000) {
+      this.pdfDom = document.querySelectorAll('.pdf-part');
+    } else {
+      this.pdfDom = document.querySelectorAll('#downPdf');
+    }
+    let PDF = new JSPDF('', 'pt', 'a4');
+    this.loopForPdf(PDF, 0);
+  }
+
+  // 截屏导出pdf递归操作
+  loopForPdf(PDF, index) {
+    const width = (<HTMLElement>this.pdfDom[index]).offsetWidth; // 获取dom 宽度
+    const height = (<HTMLElement>this.pdfDom[index]).offsetHeight; // 获取dom 高度
+    let mycanvas = document.createElement('canvas'); // 创建一个canvas节点
+    const scale = 1.3; // 定义任意放大倍数 支持小数
+    mycanvas.width = width * scale; // 定义canvas 宽度 * 缩放
+    mycanvas.height = height * scale; // 定义canvas高度 *缩放
+    mycanvas.getContext('2d'); // 获取context,设置scale
+    let opts = {
+      scale: scale, // 添加的scale 参数
+      canvas: mycanvas, // 自定义 canvas
+      width: width, // dom 原始宽度
+      height: height,
+      useCORS: true // 【重要】开启跨域配置
+    };
+    html2canvas(this.pdfDom[index], opts).then((canvas) => {
+      if (index > 0) {
+        PDF.addPage();
+      }
+      let contentWidth = canvas.width;
+      let contentHeight = canvas.height;
+      let pageHeight = contentWidth / 592.28 * 841.89;
+      let leftHeight = contentHeight;
+      let position = 0;
+      let imgWidth = 555.28;
+      let imgHeight = 555.28 / contentWidth * contentHeight;
+      let pageData = canvas.toDataURL('image/jpeg', 1.0);
+      if (leftHeight < pageHeight) {
+        PDF.addImage(pageData, 'JPEG', 20, 0, imgWidth, imgHeight);
+      } else {
+        while (leftHeight > 0) {
+          PDF.addImage(pageData, 'JPEG', 20 , position, imgWidth, imgHeight);
+          leftHeight -= pageHeight;
+          position -= 841.89;
+          if (leftHeight > 0) {
+            PDF.addPage();
+          }
+        }
+      }
+      index++;
+      if (index === this.pdfDom.length) {
+        PDF.save(this.student_name + '笔试报告.pdf');
+        mycanvas.remove();
+        if (this.report_type === 0) {
+          $('.padding-cote-outside').css('height', 'calc(100vh - 72px)');
+        }
+        $('#downPdf').css('display', 'none');
+        $('#blackground').css('display', 'none');
+        enable_scroll();
+      } else {
+        this.loopForPdf(PDF, index);
+      }
+    });
+  }
