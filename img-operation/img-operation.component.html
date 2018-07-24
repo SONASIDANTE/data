@@ -1,0 +1,13 @@
+<p-dialog id="imgop" (onHide)="beforeHide()" [showHeader]="false" [width]="650" [(visible)]="showImg" [modal]="true" [dismissableMask]="true">
+  <div class="ui-g-12 img-out">
+    <img  #img [style.width]="imgInfo.width+'px'" [style.transform]="'rotate('+imgInfo.rotate+'deg)'"
+          class="show-img" [src]="imgSrc" crossorigin="anonymous">
+  </div>
+  <div class="ui-g-12 delete-padding" style="text-align: center;">
+    <span class="imgop-icon"><i (click)="zoomIn()" class="iconfont icon-fangda"></i></span>
+    <span class="imgop-icon"><i (click)="zoomOut()" class="iconfont icon-suoxiao"></i></span>
+    <span class="imgop-icon"><i (click)="rotateImg()" class="iconfont icon-shuaxin"></i></span>
+    <!--<span class="imgop-icon"><a [download]="imgName" [href]="downLink"  ><i class="iconfont icon-btnpublishdefault"></i></a></span>-->
+  </div>
+</p-dialog>
+

@@ -1,0 +1,47 @@
+.imgop-icon {
+  cursor: pointer;
+  color: #68bfd6;
+  margin: 5px 10px;
+  display: inline-block;
+}
+.imgop-icon >>> i {
+  font-size: 26px;
+  color: #888888;
+}
+.imgop-icon >>> i:hover {
+  color: #68bfd6;
+}
+#imgop >>> .ui-dialog {
+  top: 90px !important;
+}
+#imgop >>> * {
+  user-select: none;
+}
+#imgop >>> .ui-dialog-content {
+  padding-bottom: 0;
+}
+
+.show-img {
+  display: block;
+  cursor: move;
+  /*margin: auto;*/
+  /*position: relative;*/
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+.img-out {
+  overflow: hidden;
+  height: 400px;
+  position: relative;
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*align-items: center;*/
+}
+a {
+  text-decoration: none;
+  outline: 0;
+}
