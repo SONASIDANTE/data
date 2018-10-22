@@ -1,0 +1,71 @@
+.blue-word {
+  cursor: pointer;
+  z-index: 10;
+}
+.blue-line-v {
+  height: calc(1em + 30px);
+  background: #3ea3c6;
+  width: 1px;
+  position: relative;
+  top: calc(0.5em + 15px);
+}
+.blue-line-br {
+  height: calc(100% - 44px);
+  /*height: auto;*/
+  background: #3ea3c6;
+  width: 1px;
+  /*position: relative;*/
+  position: absolute;
+  top: calc(0.5em + 15px);
+}
+.white-line-br {
+  height: calc(100%);
+  /*height: auto;*/
+  background: white;
+  z-index: 100;
+  width: 1px;
+  /*position: relative;*/
+  position: absolute;
+  top: calc(-0.5em - 15px);
+}
+.blue-line {
+  width: 25px;
+  height: 1px;
+  background: #3ea3c6;
+}
+.list-out {
+  padding-left: 0;
+  padding-right: 0;
+}
+.list-left, .list-right {
+  padding: 0;
+}
+.list-left {
+  display: flex;
+  height: 30px;
+  flex-grow: 1;
+  justify-content: flex-start;
+  align-items: center;
+}
+.list-right {
+  display: flex;
+  width: 200px  ;
+  justify-content: space-between;
+  align-items: center;
+}
+.dp-name {
+  padding: 0 20px;
+}
+.icon-xiajiantou {
+  margin-left: -0.5em;
+  background: white;
+  height: 1em;
+  line-height: 1em;
+}
+.ion-ios-circle-filled {
+  font-size: 18px;
+  margin-left: -0.4em;
+  background: white;
+  height: 1em;
+  line-height: 1em;
+}

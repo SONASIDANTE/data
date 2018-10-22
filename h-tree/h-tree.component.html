@@ -1,0 +1,25 @@
+<div class="ui-g-12 delete-padding ui-g" style="position: relative">
+  <div class="blue-line-br" [style.left]="level>1?(level - 1)*25+'px':0"></div>
+  <div class="ui-g-12 text-style-narrow delete-padding" >
+    <div *ngFor="let item of list;let i = index" class=" ui-g-12 delete-padding">
+      <div class="list-out ui-g-12 ui-g">
+        <div class="list-left ui-g-9" (click)="item.fold=!item.fold">
+          <div class="blank-place" [style.width]="(level-1)*25+'px'"></div>
+          <span *ngIf="level!==0" class="blue-line"></span>
+          <span *ngIf="!item.fold&&item.children.length>0" class="blue-line-v"></span>
+          <i *ngIf="!item.fold" class="blue-word iconfont icon-xiajiantou"></i>
+          <i *ngIf="item.fold" class="blue-word ion-ios-circle-filled"></i>
+          <span class="dp-name">{{item.name}}</span>
+        </div>
+        <div class="list-right ui-g-3" *ngIf="auth.haveAuth('ROLE_ADMIN')">
+          <span (click)="addDepartment(item.id)" class="blue-word">创建子部门</span>
+          <i (click)="editDepartment(item.id, item.name)" class="blue-word iconfont icon-bianji-copy"></i>
+          <i (click)="deleteDepartment(item.id, item.name)" class="blue-word iconfont icon-delete"></i>
+        </div>
+      </div>
+      <div *ngIf="last&&level>2" class="white-line-br" [style.left]="(level-2)*25+'px'"></div>
+      <div *ngIf="last&&level==1&&list.length==1" class="white-line-br" style="top:calc(15px + 0.5em);" [style.left]="(level-1)*25+'px'"></div>
+      <app-h-tree (add)="addListen($event)"  (edit)="editListen($event)" (delete)="deleteListen($event)" *ngIf="!item.fold&&item.children.length>0" [level]="level+1" [list]="item.children" [parentId]="item.id"  [last]="i==list.length-1"></app-h-tree>
+    </div>
+  </div>
+</div>
